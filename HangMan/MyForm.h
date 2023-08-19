@@ -221,7 +221,6 @@ namespace HangMan {
 		this->head->TabIndex = 10;
 		this->head->TabStop = false;
 		this->head->Visible = false;
-		this->head->Click += gcnew System::EventHandler(this, &MyForm::head_Click);
 		// 
 		// Body
 		// 
@@ -962,8 +961,6 @@ namespace HangMan {
 		Letter_Z->Enabled = false;
 	}
 
-private: System::Void head_Click(System::Object^ sender, System::EventArgs^ e) {
 
-}
 };
 }

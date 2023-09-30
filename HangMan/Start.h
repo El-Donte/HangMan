@@ -1,8 +1,5 @@
 #pragma once
 
-#include "MyForm.h"
-
-
 namespace HangMan {
 
 	using namespace System;
@@ -12,22 +9,15 @@ namespace HangMan {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for Start
-	/// </summary>
 	public ref class Start : public System::Windows::Forms::Form
 	{
 	public:
 		Start(void)	
 		{
 			InitializeComponent();
-			
 		}
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		~Start()
 		{
 			if (components)
@@ -35,23 +25,22 @@ namespace HangMan {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Button^ Button_Start;
-	private: System::Windows::Forms::Button^ Load;
-	private: System::Windows::Forms::Label^ lable;
-	private: System::Windows::Forms::Label^ Rules;
-	private: System::Windows::Forms::OpenFileDialog^ LoadWords;
+	private: 
+		System::Windows::Forms::Button^ Button_Start;
+		System::Windows::Forms::Button^ Load;
+		System::Windows::Forms::Label^ lable;
+		System::Windows::Forms::Label^ Rules;
+		System::Windows::Forms::OpenFileDialog^ LoadWords;
+		System::ComponentModel::Container ^components;
 
-	private:
-		/// <summary>
-		
+	public:
 		String^ word;
 		String^ w;
 		String^ codeword;
-		
+	private:
 		static int str = 0;
 		static int n = 0;
 		
-		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -139,66 +128,10 @@ namespace HangMan {
 
 		}
 #pragma endregion
+//начтать со словами которые уже есть
+	private: System::Void Button_Start_Click(System::Object^ sender, System::EventArgs^ e);
+//загрузить свои слова и начать
+	private: System::Void Load_Click(System::Object^ sender, System::EventArgs^ e);
 
-	private: System::Void Button_Start_Click(System::Object^ sender, System::EventArgs^ e) {
-		array<String^>^ words = gcnew array<String^> {"world", "rabbit", "australia",
-			"glasses", "cat", "overcoat"};
-
-		Random^ ran = gcnew Random();
-		word = words[ran->Next(0, 6)]->ToLower();
-
-		for (int ii = 0; ii < word->Length; ii++) {
-			codeword += "_";
-		}
-
-		this->Hide();
-		MyForm^ obj = gcnew MyForm(codeword,word);
-		obj->Show();
-	}
-	
-private: System::Void Load_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	
-	String^ FileName = " ";
-
-	if (LoadWords->ShowDialog() == Windows::Forms::DialogResult::OK) {
-		FileName = LoadWords->FileName;
-	}
-
-	try
-	{
-		StreamReader^ file = File::OpenText(FileName);
-
-		while (!file->EndOfStream) {
-			w = file->ReadLine();
-			str++;
-		}
-
-		Random^ ran = gcnew Random();
-		n = ran->Next(0, str); 
-
-		str = 0;
-		while (!file->EndOfStream) {
-			w = file->ReadLine();
-			str++;
-			if (n == str) {
-				break;
-			}
-		}
-
-		word = w->ToLower();
-
-		for (int ii = 0; ii < word->Length; ii++) {
-			codeword += "_";
-		}
-		MyForm^ form = gcnew MyForm(codeword,word);
-		this->Hide();
-		form->Show();
-	}
-	catch (Exception^ e)
-	{
-		MessageBox::Show(this, "файл не был открыт,или в нем нет слов", "Eror", MessageBoxButtons::OK, MessageBoxIcon::Error);
-	}
-}
 };
 }

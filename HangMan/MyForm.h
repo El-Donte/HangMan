@@ -1,6 +1,6 @@
 #pragma once
-#include "Win.h"
-#include "GameOver.h"
+#include"Start.h"
+
 
 namespace HangMan {
 
@@ -12,23 +12,17 @@ namespace HangMan {
 	using namespace System::Drawing;
 	using namespace System::IO;
 
-	/// <summary>
-	/// Summary for MyForm
-	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
+		Start^ form;
 	public:
-		MyForm(void)
-		{
-			InitializeComponent(); 
-		}
-
-		MyForm(String^ code,String^ w)
+		MyForm(Start^ fr)
 		{
 			InitializeComponent();
-			this->Word->Text = code;
-			codeword = code;
-			word = w;
+			this->form = fr;
+			this->Word->Text = form->codeword;
+			codeword = form->codeword;
+			word = form->word;
 			timer1->Enabled = true;
 		}
 
@@ -38,70 +32,76 @@ namespace HangMan {
 		{
 			if (components)
 			{
+				timer1->Enabled = false;
 				delete components;
 			}
 		}
 
-	private: System::Windows::Forms::Label^ label_Word;
-	private: System::Windows::Forms::Label^ Word;
+	private: 
+		 System::Windows::Forms::Label^ label_Word;
+		 System::Windows::Forms::Label^ Word;
 
-	private: System::ComponentModel::IContainer^ components;
+		 System::ComponentModel::IContainer^ components;
 
-	private: System::Windows::Forms::PictureBox^ plate;
-	private: System::Windows::Forms::PictureBox^ head;
-	private: System::Windows::Forms::PictureBox^ Body;
-	private: System::Windows::Forms::PictureBox^ hand_L;
-	private: System::Windows::Forms::PictureBox^ hand_R;
-	private: System::Windows::Forms::PictureBox^ Leg_R;
-	private: System::Windows::Forms::PictureBox^ Leg_L;
+		 System::Windows::Forms::PictureBox^ plate;
+		 System::Windows::Forms::PictureBox^ head;
+		 System::Windows::Forms::PictureBox^ Body;
+		 System::Windows::Forms::PictureBox^ hand_L;
+		 System::Windows::Forms::PictureBox^ hand_R;
+		 System::Windows::Forms::PictureBox^ Leg_R;
+		 System::Windows::Forms::PictureBox^ Leg_L;
 
-	private: System::Windows::Forms::Button^ Letter_A;
-	private: System::Windows::Forms::Button^ Letter_T;
-	private: System::Windows::Forms::Button^ Letter_R;
-	private: System::Windows::Forms::Button^ Letter_Q;
-	private: System::Windows::Forms::Button^ Letter_P;
-	private: System::Windows::Forms::Button^ Letter_O;
-	private: System::Windows::Forms::Button^ Letter_N;
-	private: System::Windows::Forms::Button^ Letter_M;
-	private: System::Windows::Forms::Button^ Letter_L;
-	private: System::Windows::Forms::Button^ Letter_G;
-	private: System::Windows::Forms::Button^ Letter_I;
-	private: System::Windows::Forms::Button^ Letter_J;
-	private: System::Windows::Forms::Button^ Letter_K;
-	private: System::Windows::Forms::Button^ Letter_F;
-	private: System::Windows::Forms::Button^ Letter_E;
-	private: System::Windows::Forms::Button^ Letter_D;
-	private: System::Windows::Forms::Button^ Letter_C;
-	private: System::Windows::Forms::Button^ Letter_B;
-	private: System::Windows::Forms::Button^ Letter_S;
-	private: System::Windows::Forms::Button^ Letter_H;
-	private: System::Windows::Forms::Button^ Letter_Z;
-	private: System::Windows::Forms::Button^ Letter_Y;
-	private: System::Windows::Forms::Button^ Letter_X;
-	private: System::Windows::Forms::Button^ Letter_V;
-	private: System::Windows::Forms::Button^ Letter_U;
-	private: System::Windows::Forms::Button^ Letter_W;
+		 System::Windows::Forms::Button^ Letter_A;
+		 System::Windows::Forms::Button^ Letter_T;
+		 System::Windows::Forms::Button^ Letter_R;
+		 System::Windows::Forms::Button^ Letter_Q;
+		 System::Windows::Forms::Button^ Letter_P;
+		 System::Windows::Forms::Button^ Letter_O;
+		 System::Windows::Forms::Button^ Letter_N;
+		 System::Windows::Forms::Button^ Letter_M;
+		 System::Windows::Forms::Button^ Letter_L;
+		 System::Windows::Forms::Button^ Letter_G;
+		 System::Windows::Forms::Button^ Letter_I;
+		 System::Windows::Forms::Button^ Letter_J;
+		 System::Windows::Forms::Button^ Letter_K;
+		 System::Windows::Forms::Button^ Letter_F;
+		 System::Windows::Forms::Button^ Letter_E;
+		 System::Windows::Forms::Button^ Letter_D;
+		 System::Windows::Forms::Button^ Letter_C;
+		 System::Windows::Forms::Button^ Letter_B;
+		 System::Windows::Forms::Button^ Letter_S;
+		 System::Windows::Forms::Button^ Letter_H;
+		 System::Windows::Forms::Button^ Letter_Z;
+		 System::Windows::Forms::Button^ Letter_Y;
+		 System::Windows::Forms::Button^ Letter_X;
+		 System::Windows::Forms::Button^ Letter_V;
+		 System::Windows::Forms::Button^ Letter_U;
+		 System::Windows::Forms::Button^ Letter_W;
 
-	private: System::Windows::Forms::Panel^ panel1;
-	private: System::Windows::Forms::Panel^ panel2;
+		 System::Windows::Forms::Panel^ panel1;
+		 System::Windows::Forms::Panel^ panel2;
 	
 	
-	private: System::Windows::Forms::PictureBox^ pictureBox1;
-	private: System::Windows::Forms::Label^ time;
-	private:  System::Windows::Forms::Timer^ timer1;
+		 System::Windows::Forms::PictureBox^ pictureBox1;
+		 System::Windows::Forms::Label^ time;
+		 System::Windows::Forms::Timer^ timer1;
 
-	private:
+	public:
 		String^ word;
-		String^ codeword;
-		wchar_t letter;
+		String^ WrongLetters;
 		int count = 0;
 		static int sec = 0;
 		static int min = 0;
+
+	private:
+		String^ codeword;
+		wchar_t letter;
 		String^ Sec;
 		String^ Min;
 		bool flag = false;
-		String^ WrongLetters;
+		
 
+//иницализация всех компонентов
 #pragma region Windows Form Designer generated code
 	void InitializeComponent(void)
 	{
@@ -221,7 +221,6 @@ namespace HangMan {
 		this->head->TabIndex = 10;
 		this->head->TabStop = false;
 		this->head->Visible = false;
-		this->head->Click += gcnew System::EventHandler(this, &MyForm::head_Click);
 		// 
 		// Body
 		// 
@@ -754,216 +753,38 @@ namespace HangMan {
 #pragma endregion
 	
 	
+	//логика игры
+	private: System::Void Game(wchar_t letter);
 
-	private: System::Void Game(String^ word,wchar_t letter) {
-		flag = false;
-		if (count != 6) {
-			for (int ii = 0; ii < word->Length; ii++) {
-				if (word[ii] == letter ){
-					flag = true;
+	//таймер
+	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e);
 
-					codeword = codeword->Insert(ii, Convert::ToString(letter));
-					codeword = codeword->Remove(ii + 1, 1);
-					
-					this->Word->Text = codeword->ToUpper();
-
-					if (codeword == word) {
-						timer1->Enabled = false;
-						this->Hide();
-						Win^ obj = gcnew Win(WrongLetters, Min, Sec, word, count);
-						obj->Show();
-					}
-
-				}
-			}
-
-			if (flag == false) {
-				count += 1;
-				WrongLetters += letter + ", ";
-				if (count == 6) {
-					timer1->Enabled = false;
-					this->Hide();
-					GameOver^ obj = gcnew GameOver(WrongLetters, Min, Sec, word, count);
-					obj->Show();
-				}
-				switch (count)
-				{
-				case 1:
-					head->Visible = true;
-					break;
-				case 2:
-					Body->Visible = true;
-
-					break;
-				case 3:
-					hand_L->Visible = true;
-					hand_L->BringToFront();
-					break;
-				case 4:
-					hand_R->Visible = true;
-					hand_R->BringToFront();
-					break;
-				case 5:
-					Leg_L->Visible = true;
-					Leg_L->BringToFront();
-					break;
-				case 6:
-					Leg_R->Visible = true;
-					Leg_R->BringToFront();
-					break;
-				default:
-					break;
-				}
-			}
-		}
-			
-	}
-
-	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
-
-		sec++;
-		if (sec == 60) {
-			min++;
-			sec = 0;
-		}
-		Sec = Convert::ToString(sec);
-		Min = Convert::ToString(min);
-
-		time->Text =Min + ":" + Sec;
-	}
-	private: System::Void Letter_A_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'a');
-		Letter_A->Visible = false;
-		Letter_A->Enabled = false;
-	}
-	private: System::Void Letter_B_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'b');
-		Letter_B->Visible = false;
-		Letter_B->Enabled = false;
-	}
-	private: System::Void Letter_C_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'c');
-		Letter_C->Visible = false;
-		Letter_C->Enabled = false;
-	}
-	private: System::Void Letter_D_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'd');
-		Letter_D->Visible = false;
-		Letter_D->Enabled = false;
-	}
-	private: System::Void Letter_E_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'e');
-		Letter_E->Visible = false;
-		Letter_E->Enabled = false;
-	}
-	private: System::Void Letter_F_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'F');
-		Letter_F->Visible = false;
-		Letter_F->Enabled = false;
-	}
-	private: System::Void Letter_G_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'g');
-		Letter_G->Visible = false;
-		Letter_G->Enabled = false;
-	}
-	private: System::Void Letter_H_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'h');
-		Letter_H->Visible = false;
-		Letter_H->Enabled = false;
-	}
-	private: System::Void Letter_I_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'i');
-		Letter_I->Visible = false;
-		Letter_I->Enabled = false;
-	}
-	private: System::Void Letter_J_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'j');
-		Letter_J->Visible = false;
-		Letter_J->Enabled = false;
-	}
-	private: System::Void Letter_K_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'k');
-		Letter_K->Visible = false;
-		Letter_K->Enabled = false;
-	}
-	private: System::Void Letter_L_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'l');
-		Letter_L->Visible = false;
-		Letter_L->Enabled = false;
-	}
-	private: System::Void Letter_M_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'm');
-		Letter_M->Visible = false;
-		Letter_M->Enabled = false;
-	}
-	private: System::Void Letter_N_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'n');
-		Letter_N->Visible = false;
-		Letter_N->Enabled = false;
-	}
-	private: System::Void Letter_O_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'o');
-		Letter_O->Visible = false;
-		Letter_O->Enabled = false;
-	}
-	private: System::Void Letter_P_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'p');
-		Letter_P->Visible = false;
-		Letter_P->Enabled = false;
-	}
-	private: System::Void Letter_Q_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'q');
-		Letter_Q->Visible = false;
-		Letter_Q->Enabled = false;
-	}
-	private: System::Void Letter_R_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'r');
-		Letter_R->Visible = false;
-		Letter_R->Enabled = false;
-	}
-	private: System::Void Letter_S_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 's');
-		Letter_S->Visible = false;
-		Letter_S->Enabled = false;
-	}
-	private: System::Void Letter_T_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 't');
-		Letter_T->Visible = false;
-		Letter_T->Enabled = false;
-	}
-	private: System::Void Letter_U_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'u');
-		Letter_U->Visible = false;
-		Letter_U->Enabled = false;
-	}
-	private: System::Void Letter_V_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'v');
-		Letter_V->Visible = false;
-		Letter_V->Enabled = false;
-	}
-	private: System::Void Letter_W_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'w');
-		Letter_W->Visible = false;
-		Letter_W->Enabled = false;
-	}
-	private: System::Void Letter_X_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'x');
-		Letter_X->Visible = false;
-		Letter_X->Enabled = false;
-	}
-	private: System::Void Letter_Y_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'y');
-		Letter_Y->Visible = false;
-		Letter_Y->Enabled = false;
-	}
-	private: System::Void Letter_Z_Click(System::Object^ sender, System::EventArgs^ e) {
-		Game(word, 'z');
-		Letter_Z->Visible = false;
-		Letter_Z->Enabled = false;
-	}
-
-private: System::Void head_Click(System::Object^ sender, System::EventArgs^ e) {
-
-}
+	//клавиатура
+	private: System::Void Letter_A_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_B_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_C_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_D_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_E_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_F_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_G_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_H_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_I_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_J_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_K_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_L_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_M_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_N_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_O_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_P_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_Q_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_R_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_S_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_T_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_U_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_V_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_W_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_X_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_Y_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Letter_Z_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }

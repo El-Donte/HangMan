@@ -1,5 +1,5 @@
 #pragma once
-
+#include "MyForm.h"
 
 
 namespace HangMan {
@@ -11,31 +11,21 @@ namespace HangMan {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for Win
-	/// </summary>
 	public ref class Win : public System::Windows::Forms::Form
 	{
+		MyForm^ form;
 	public:
-		Win(void)
+		Win(MyForm^ fr)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
-		}
-		Win(String^ _WrongLetters, String^ _min,String^ _sec,String^ _word, int _count){
-			InitializeComponent();
-			this->Word->Text = _word;
-			this->WrongLetters->Text = _WrongLetters;
-			this->Time->Text = _min + ":" + _sec;
-			this->Count->Text = _count.ToString();
+			this->form = fr;
+			this->Word->Text = form->word;
+			this->WrongLetters->Text = form->WrongLetters;
+			this->Time->Text = form->min + ":" + form->sec;
+			this->Count->Text = form->count.ToString();
 		}
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		~Win()
 		{
 			if (components)
@@ -43,37 +33,26 @@ namespace HangMan {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^ label_win;
-	private: System::Windows::Forms::Label^ Time;
 
-	private: System::Windows::Forms::PictureBox^ pictureBox1;
-	private: System::Windows::Forms::Label^ label_Word;
-	private: System::Windows::Forms::Label^ Word;
-	private: System::Windows::Forms::Label^ label_Count;
-	private: System::Windows::Forms::Label^ Count;
-	private: System::Windows::Forms::Label^ label_Wrong;
+	private: 
+		System::Windows::Forms::Label^ label_win;
+		System::Windows::Forms::Label^ Time;
 
-	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::Label^ WrongLetters;
-	private: System::Windows::Forms::Button^ retry;
+		System::Windows::Forms::PictureBox^ pictureBox1;
 
-	private: System::Windows::Forms::Button^ Exit;
+		System::Windows::Forms::Label^ label_Word;
+		System::Windows::Forms::Label^ Word;
+		System::Windows::Forms::Label^ label_Count;
+		System::Windows::Forms::Label^ Count;
+		System::Windows::Forms::Label^ label_Wrong;
+		System::Windows::Forms::Label^ label2;
+		System::Windows::Forms::Label^ WrongLetters;
 
-
-
-	protected:
-
-	protected:
-
-	private:
-		
+		System::Windows::Forms::Button^ retry;
+		System::Windows::Forms::Button^ Exit;
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Win::typeid));
@@ -246,13 +225,9 @@ namespace HangMan {
 		}
 #pragma endregion
 
-	private: System::Void retry_Click(System::Object^ sender, System::EventArgs^ e) {
-		Application::Restart();
-	}
-
-
-	private: System::Void Exit_Click(System::Object^ sender, System::EventArgs^ e) {
-		Application::Exit();
-	}
+	//повторить
+	private: System::Void retry_Click(System::Object^ sender, System::EventArgs^ e);
+	//выход
+	private: System::Void Exit_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }

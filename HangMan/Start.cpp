@@ -19,7 +19,7 @@ System::Void HangMan::Start::Button_Start_Click(System::Object^ sender, System::
 		"glasses", "cat", "overcoat"};
 
 	Random^ ran = gcnew Random();
-	word = words[ran->Next(0, 6)]->ToLower();
+	word = words[ran->Next(0, 6)]->ToUpper();
 
 	for (int ii = 0; ii < word->Length; ii++) {
 		codeword += "_";
@@ -61,7 +61,7 @@ System::Void HangMan::Start::Load_Click(System::Object^ sender, System::EventArg
 			}
 		}
 
-		word = w->ToLower();
+		word = w->ToUpper();
 
 		for (int ii = 0; ii < word->Length; ii++) {
 			codeword += "_";

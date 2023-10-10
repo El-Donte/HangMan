@@ -40,9 +40,7 @@ namespace HangMan {
 	private: 
 		 System::Windows::Forms::Label^ label_Word;
 		 System::Windows::Forms::Label^ Word;
-
 		 System::ComponentModel::IContainer^ components;
-
 		 System::Windows::Forms::PictureBox^ plate;
 		 System::Windows::Forms::PictureBox^ head;
 		 System::Windows::Forms::PictureBox^ Body;
@@ -50,7 +48,6 @@ namespace HangMan {
 		 System::Windows::Forms::PictureBox^ hand_R;
 		 System::Windows::Forms::PictureBox^ Leg_R;
 		 System::Windows::Forms::PictureBox^ Leg_L;
-
 		 System::Windows::Forms::Button^ Letter_A;
 		 System::Windows::Forms::Button^ Letter_T;
 		 System::Windows::Forms::Button^ Letter_R;
@@ -77,11 +74,8 @@ namespace HangMan {
 		 System::Windows::Forms::Button^ Letter_V;
 		 System::Windows::Forms::Button^ Letter_U;
 		 System::Windows::Forms::Button^ Letter_W;
-
 		 System::Windows::Forms::Panel^ panel1;
-		 System::Windows::Forms::Panel^ panel2;
-	
-	
+		 System::Windows::Forms::Panel^ panel2;	
 		 System::Windows::Forms::PictureBox^ pictureBox1;
 		 System::Windows::Forms::Label^ time;
 		 System::Windows::Forms::Timer^ timer1;

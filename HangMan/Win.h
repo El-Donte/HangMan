@@ -19,7 +19,7 @@ namespace HangMan {
 		{
 			InitializeComponent();
 			this->form = fr;
-			this->Word->Text = form->word;
+			this->Word->Text = form->word->ToLower();
 			this->WrongLetters->Text = form->WrongLetters;
 			this->Time->Text = form->min + ":" + form->sec;
 			this->Count->Text = form->count.ToString();
